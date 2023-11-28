@@ -11,40 +11,40 @@ using namespace std;
 
 class Matrix {
 private:
-    int size;
+    int n;
     int** matrix;
 public:
     //konstruktor domyslny
     Matrix(void);
     //konstruktor z parametrem
-    Matrix(int size);
+    Matrix(int n);
     //konstruktor kopiujacy
     Matrix(const Matrix& m);
-    //konstruktor alokuje pamięc i przepisuje dane z pliku
-    Matrix(int size, int* tab);
+    //konstruktor alokuje pamięc i przepisuje dane z tabeli
+    Matrix(int n, int* tab);
     //destruktor
     ~Matrix();
 
-    //metody
+    //METODY//
     //metoda alokująca pamięc na macierz
-    Matrix& alokuj(int size);
+    Matrix& alokuj(int n);
     //metoda wstawiająca wartość
     Matrix& wstaw(int x, int y, int value);//wiersz, kolumna, wartosc
     //zwraca wartość elementu x, y
     int pokaz(int x, int y);
     //zamienia wiersze z kolumnami
-    Matrix& dowroc(void);
+    Matrix& odwroc(void);
     //wypełnia cyframi od 0 do 9 wszystkie elementy tablicy
     Matrix& losuj(void);
     //wypełniamy cyframi od 0 do 9 elementy macierzy. Zmienna x określa ile cyfr będziemy losować Następnie algorytm losuje, w które miejsca wstawi wylosowane cyfry
     Matrix& losuj(int x);
     //po przekątnej są wpisane dane z tabeli, a pozostałe elementy są równe 0,
     Matrix& diagonalna(int* tab);
-    // po przekątnej są wpisane dane z tabeli, a pozostałe elementy są równe 0. Parametr k może oznaczać: 0 - przekątna przechodząca przez środek (czyli tak jak metoda diagonalna), cyfra dodatnia przesuwa diagonalną do góry macierzy o podaną cyfrę, cyfra ujemna przesuwa diagonalną w dół o podaną cyfrę
+    //po przekątnej są wpisane dane z tabeli, a pozostałe elementy są równe 0. Parametr k może oznaczać: 0 - przekątna przechodząca przez środek (czyli tak jak metoda diagonalna), cyfra dodatnia przesuwa diagonalną do góry macierzy o podaną cyfrę, cyfra ujemna przesuwa diagonalną w dół o podaną cyfrę
     Matrix& diagonalna_k(int* tab, int k);
     //przepisuje dane z tabeli do kolumny, którą wskazuje zmienna x
     Matrix& kolumna(int x, int* t);
-    //przepisuje dane z tabeli do wiersza, który wskazuje zmienna x
+    //przepisuje dane z tabeli do wiersza, który wskazuje zmienna y
     Matrix& wiersz(int y, int* t);
     //uzupełnia macierz: 1-na przekątnej, 0-poza przekątną
     Matrix& przekatna(void);
@@ -99,8 +99,5 @@ public:
     bool operator>(const Matrix& m);
     //operator mniejszości 
     bool operator<(const Matrix& m);
-
-
-
 
 };

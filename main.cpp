@@ -49,6 +49,7 @@ Matrix::Matrix(int n, int* tab){
     }
 }
 
+// Dekonstruktor
 Matrix::~Matrix() {
     if (matrix != nullptr) {
         for (int i = 0; i < n; ++i) {
@@ -59,7 +60,7 @@ Matrix::~Matrix() {
     }
 }
 
-
+// Operator Wypisywania
 ostream& operator<<(ostream& o, const Matrix& m) {
     for (int i = 0; i < m.n; i++) {
         for (int j = 0; j < m.n; j++) {
@@ -87,7 +88,11 @@ Matrix& Matrix::wstaw(int x, int y, int value){//wiersz, kolumna, wartosc
 }
 
 //zwraca wartość elementu x, y
-int Matrix::pokaz(int x, int y){
+int Matrix::pokaz(int x, int y) {
+    if (x < 0 || x >= n || y < 0 || y >= n) {
+        return 0;
+    }
+
     return this->matrix[x][y];
 }
 
@@ -528,7 +533,9 @@ int main() {
 5,8,7,8,2,9,9,1,9,3,7,3,3,0,4,2,2,2,2,7,1,4,2,9,5,7,8,4,4,0
 };
 
-    
+    Matrix m1(30, tab);
+    m1.wstaw(2,2,88);
+    cout << m1.pokaz(2,2);
 
     return 0;
 }

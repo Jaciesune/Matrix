@@ -150,37 +150,44 @@ Matrix& Matrix::losuj(int x) {
 }
 
 //po przekątnej są wpisane dane z tabeli, a pozostałe elementy są równe 0,
-Matrix& Matrix::diagonalna(int* tab){
+Matrix& Matrix::diagonalna(int* tab) {
     int k = 0;
-    for(int i = 0; i < n; i++){
-        this->matrix[i][i] = tab[k];
-        k++;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i == j) {
+                // Jeśli jesteśmy na przekątnej, przypisz wartość z tablicy
+                if (k < n) {
+                    this->matrix[i][j] = tab[k];
+                    k++;
+                } else {
+                    // Jeśli skończyły się wartości w tablicy, wpisz 0
+                    this->matrix[i][j] = 0;
+                }
+            } else {
+                // Jeśli nie jesteśmy na przekątnej, wpisz 0
+                this->matrix[i][j] = 0;
+            }
+        }
     }
     return *this;
 }
 
 //po przekątnej są wpisane dane z tabeli, a pozostałe elementy są równe 0. Parametr k może oznaczać: 0 - przekątna przechodząca przez środek (czyli tak jak metoda diagonalna), cyfra dodatnia przesuwa diagonalną do góry macierzy o podaną cyfrę, cyfra ujemna przesuwa diagonalną w dół o podaną cyfrę
-Matrix& Matrix::diagonalna_k(int* tab, int k){
+Matrix& Matrix::diagonalna_k(int* tab, int k) {
     int l = 0;
-    if(k == 0){
-        for(int i = 0; i < n; i++){
-            this->matrix[i][i] = tab[l];
-            l++;
-        }
-    }
-    else if(k > 0){
-        for(int i = 0; i < n; i++){
-            if(i + k < n){
-                this->matrix[i][i + k] = tab[l];
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (k == 0 && i == j) {
+                this->matrix[i][j] = tab[l];
                 l++;
-            }
-        }
-    }
-    else if(k < 0){
-        for(int i = 0; i < n; i++){
-            if(i + k >= 0){
-                this->matrix[i][i + k] = tab[l];
+            } else if (k > 0 && i + k < n && j == i + k) {
+                this->matrix[i][j] = tab[l];
                 l++;
+            } else if (k < 0 && i - k >= 0 && j == i - k) {
+                this->matrix[i][j] = tab[l];
+                l++;
+            } else {
+                this->matrix[i][j] = 0;
             }
         }
     }
@@ -540,7 +547,7 @@ int main() {
 
     cout << endl;
 
-    m1.losuj(30);
+    m1.diagonalna_k(tab, 2);
     cout << m1;
     
 

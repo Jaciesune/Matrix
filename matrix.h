@@ -96,9 +96,9 @@ public:
     //jeśli nie, to nie możemy mówić że macierze są równe, jeśli tak, to możemy
     bool operator==(const Matrix& m) const;
     //operator większości sprawdza, czy każdy element macierzy spełnia nierówność 𝐴(𝑛, 𝑚) > 𝐵(𝑛, 𝑚). Jeśli tak, to możemy powiedzieć że macierz jest większa, w przeciwnym wypadku nie możemy stwierdzić, że macierz jest większa.
-    bool operator>(const Matrix& m);
+    bool operator>(const Matrix& m) const;
     //operator mniejszości 
-    bool operator<(const Matrix& m);
+    bool operator<(const Matrix& m) const;
 
 
     };

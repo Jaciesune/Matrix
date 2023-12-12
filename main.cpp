@@ -488,30 +488,30 @@ bool Matrix::operator==(const Matrix& m) const {
 
 
 //operator większości sprawdza, czy każdy element macierzy spełnia nierówność 𝐴(𝑛, 𝑚) > 𝐵(𝑛, 𝑚). Jeśli tak, to możemy powiedzieć że macierz jest większa, w przeciwnym wypadku nie możemy stwierdzić, że macierz jest większa.
-bool Matrix::operator>(const Matrix& m){
-    bool flag = true;
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
-            if(this->matrix[i][j] < m.matrix[i][j]){
-                flag = false;
+bool Matrix::operator>(const Matrix& m) const {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (this->matrix[i][j] <= m.matrix[i][j]) {
+                return false; // Jeśli znaleziono element, który sprawia, że macierz nie jest większa, zwróć false
             }
         }
     }
-    return flag;
+    return true; // Jeśli nie znaleziono takiego elementu, zwróć true
 }
 
+
 //operator mniejszości
-bool Matrix::operator<(const Matrix& m){
-    bool flag = true;
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
-            if(this->matrix[i][j] > m.matrix[i][j]){
-                flag = false;
+bool Matrix::operator<(const Matrix& m) const {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (this->matrix[i][j] >= m.matrix[i][j]) {
+                return false; // Jeśli znaleziono element, który sprawia, że macierz nie jest mniejsza, zwróć false
             }
         }
     }
-    return flag;
+    return true; // Jeśli nie znaleziono takiego elementu, zwróć true
 }
+
 
 
 int main() {
@@ -549,16 +549,7 @@ int main() {
 5,8,7,8,2,9,9,1,9,3,7,3,3,0,4,2,2,2,2,7,1,4,2,9,5,7,8,4,4,0
 };
 
-    Matrix m1;
-    m1.alokuj(30);
-    cout << m1;
-
-    cout << endl;
-
-    Matrix m2;
-    m2.alokuj(30);
     
-    cout << (m1 == m2);
     
 
     return 0;

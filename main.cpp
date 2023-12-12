@@ -468,7 +468,7 @@ bool Matrix::operator>(const Matrix& m){
     bool flag = true;
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++){
-            if(this->matrix[i][j] <= m.matrix[i][j]){
+            if(this->matrix[i][j] < m.matrix[i][j]){
                 flag = false;
             }
         }
@@ -481,7 +481,7 @@ bool Matrix::operator<(const Matrix& m){
     bool flag = true;
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++){
-            if(this->matrix[i][j] >= m.matrix[i][j]){
+            if(this->matrix[i][j] > m.matrix[i][j]){
                 flag = false;
             }
         }
@@ -495,8 +495,14 @@ int main(){
 
     int tab1[9] = {1,2,3,4,5,6,7,8,9};
     int tab2[9] = {9,8,7,6,5,4,3,2,1};
+    int tab[4] = {4, 7, 9, 13};
     Matrix m1(3, tab1);
     Matrix m2(3, tab2);
+    Matrix m3;
+    m3.alokuj(6);
+    m3.diagonalna(tab);
+
+    cout << "Diagonalna: " << endl << m3 << endl;
 
     //wypisz macierze
     cout << "Macierz m1:" << endl << m1 << endl;
@@ -504,6 +510,10 @@ int main(){
 
     //wypisz macierz m1+m2
     cout << "Macierz m1+m2:" << endl << m1 + m2 << endl;
+    cout << "Macierz M1*m2: " << endl << m1*m2 << endl;
+    cout << "Macierz m1 == m2?: " << (m1 == m2) << endl;
+    cout << "Maciezr m1<m2?: " << (m1<m2) << endl;
+    cout << "Macierz m1>m2?: " << (m1>m2) << endl;
 
 
     return 0;

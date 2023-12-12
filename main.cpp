@@ -127,23 +127,25 @@ Matrix& Matrix::losuj(void){
 }
 
 //wypełniamy cyframi od 0 do 9 elementy macierzy. Zmienna x określa ile cyfr będziemy losować Następnie algorytm losuje, w które miejsca wstawi wylosowane cyfry
-Matrix& Matrix::losuj(int x){
+Matrix& Matrix::losuj(int x) {
     srand(time(NULL));
-    int* tab = new int[x];
-    for(int i = 0; i < x; i++){
-        tab[i] = rand() % 10;
-    }
-    int k = 0;
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
+    for (int i = 0; i < n; i++) {
+        int* tab = new int[x];
+        for (int j = 0; j < x; j++) {
+            tab[j] = rand() % 10;
+        }
+
+        int k = 0;
+        for (int j = 0; j < n; j++) {
             this->matrix[i][j] = tab[k];
             k++;
-            if(k == x){
+            if (k == x) {
                 k = 0;
             }
         }
+
+        delete[] tab;
     }
-    delete[] tab;
     return *this;
 }
 
@@ -534,8 +536,13 @@ int main() {
 };
 
     Matrix m1(30, tab);
-    m1.wstaw(2,2,88);
-    cout << m1.pokaz(2,2);
+    cout << m1;
+
+    cout << endl;
+
+    m1.losuj(30);
+    cout << m1;
+    
 
     return 0;
 }

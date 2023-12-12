@@ -72,14 +72,18 @@ ostream& operator<<(ostream& o, const Matrix& m) {
 }
 
 //metoda alokująca pamięc na macierz
-Matrix& Matrix::alokuj(int n){
+Matrix& Matrix::alokuj(int n) {
     this->n = n;
     this->matrix = new int*[n];
-    for(int i = 0; i < n; i++){
+    for (int i = 0; i < n; i++) {
         this->matrix[i] = new int[n];
+        for (int j = 0; j < n; j++) {
+            this->matrix[i][j] = 1;
+        }
     }
     return *this;
 }
+
 
 //metoda wstawiająca wartość
 Matrix& Matrix::wstaw(int x, int y, int value){//wiersz, kolumna, wartosc
@@ -292,13 +296,14 @@ Matrix& Matrix::operator+(Matrix& m){
 }
 
 //A*B
-Matrix& Matrix::operator*(Matrix& m){
+Matrix& Matrix::operator*(Matrix& m) {
     Matrix* temp = new Matrix(n);
+    temp->alokuj(n);  // Zainicjowanie macierzy zerami
     int suma = 0;
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < n; j++) {
             suma = 0;
-            for(int k = 0; k < n; k++){
+            for(int k = 0; k < n; k++) {
                 suma += this->matrix[i][k] * m.matrix[k][j];
             }
             temp->matrix[i][j] = suma;
@@ -306,6 +311,7 @@ Matrix& Matrix::operator*(Matrix& m){
     }
     return *temp;
 }
+
 
 //A+int 
 Matrix& Matrix::operator+(int a){
@@ -317,6 +323,7 @@ Matrix& Matrix::operator+(int a){
     }
     return *temp;
 }
+
 
 //A*int
 Matrix& Matrix::operator*(int a){
@@ -468,17 +475,17 @@ Matrix& Matrix::operator+(double a){
 
 //sprawdza, czy każdy element macierzy spełnia równość 𝐴(𝑛, 𝑚) = 𝐵(𝑛, 𝑚)
 //jeśli nie, to nie możemy mówić że macierze są równe, jeśli tak, to możemy
-bool Matrix::operator==(const Matrix& m){
-    bool flag = true;
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < n; j++){
-            if(this->matrix[i][j] != m.matrix[i][j]){
-                flag = false;
+bool Matrix::operator==(const Matrix& m) const {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (this->matrix[i][j] != m.matrix[i][j]) {
+                return false; // Jeśli znaleziono różnicę, zwróć false
             }
         }
     }
-    return flag;
+    return true; // Jeśli nie znaleziono różnic, zwróć true
 }
+
 
 //operator większości sprawdza, czy każdy element macierzy spełnia nierówność 𝐴(𝑛, 𝑚) > 𝐵(𝑛, 𝑚). Jeśli tak, to możemy powiedzieć że macierz jest większa, w przeciwnym wypadku nie możemy stwierdzić, że macierz jest większa.
 bool Matrix::operator>(const Matrix& m){
@@ -542,13 +549,16 @@ int main() {
 5,8,7,8,2,9,9,1,9,3,7,3,3,0,4,2,2,2,2,7,1,4,2,9,5,7,8,4,4,0
 };
 
-    Matrix m1(30, tab);
+    Matrix m1;
+    m1.alokuj(30);
     cout << m1;
 
     cout << endl;
 
-    m1.diagonalna_k(tab, 2);
-    cout << m1;
+    Matrix m2;
+    m2.alokuj(30);
+    
+    cout << (m1 == m2);
     
 
     return 0;

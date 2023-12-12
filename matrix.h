@@ -15,7 +15,7 @@ private:
     int** matrix;
 public:
     //konstruktor domyslny
-    Matrix(void);
+    Matrix();
     //konstruktor z parametrem
     Matrix(int n);
     //konstruktor kopiujacy
@@ -91,7 +91,7 @@ public:
     //wszystkie cyfry są powiększone o część całkowitą z wpisanej cyfry
     Matrix& operator+(double a);
     //wypisanie macierzy
-    friend std::ostream& operator<<(std::ostream& o, Matrix& m);
+    friend std::ostream& operator<<(ostream& o, const Matrix& m);
     //sprawdza, czy każdy element macierzy spełnia równość 𝐴(𝑛, 𝑚) = 𝐵(𝑛, 𝑚)
     //jeśli nie, to nie możemy mówić że macierze są równe, jeśli tak, to możemy
     bool operator==(const Matrix& m);
@@ -100,4 +100,5 @@ public:
     //operator mniejszości 
     bool operator<(const Matrix& m);
 
-};
+
+    };
